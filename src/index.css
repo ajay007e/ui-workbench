@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+/* Tailwind dark variant driven by data-theme */
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+/* ======================================================
+   BRAND PALETTE (STATIC)
+   ====================================================== */
+:root {
+    --brand-a5: #ffffff;
+    --brand-a10: #e3e2e8;
+    --brand-a15: #c8c6d1;
+    --brand-a20: #adaabb;
+    --brand-a25: #9390a5;
+    --brand-a30: #797690;
+    --brand-a35: #615d7b;
+    --brand-a40: #494567;
+    --brand-a45: #312f53;
+    --brand-a50: #1a1a40;
+    --brand-a55: #181839;
+    --brand-a60: #171633;
+    --brand-a65: #15142c;
+    --brand-a70: #141126;
+    --brand-a75: #120f20;
+    --brand-a80: #0e0b1a;
+    --brand-a85: #0a0814;
+    --brand-a90: #05040b;
+    --brand-a95: #000000;
+}
+
+/* ======================================================
+   LIGHT THEME (RUNTIME VARIABLES)
+   ====================================================== */
+:root {
+    --color-background: var(--brand-a10);
+    --color-surface: var(--brand-a15);
+    --color-surface-elevated: var(--brand-a20);
+    --color-border: var(--brand-a25);
+
+    --color-foreground: var(--brand-a50);
+    --color-muted: var(--brand-a30);
+    --color-muted-foreground: var(--brand-a35);
+
+    --color-primary: var(--brand-a40);
+    --color-primary-foreground: var(--brand-a10);
+}
+
+/* ======================================================
+   DARK THEME (RUNTIME VARIABLES)
+   ====================================================== */
+[data-theme="dark"] {
+    --color-background: var(--brand-a85);
+    --color-surface: var(--brand-a80);
+    --color-surface-elevated: var(--brand-a75);
+    --color-border: var(--brand-a65);
+
+    --color-foreground: var(--brand-a15);
+    --color-muted: var(--brand-a35);
+    --color-muted-foreground: var(--brand-a30);
+
+    --color-primary: var(--brand-a30);
+    --color-primary-foreground: var(--brand-a10);
+}
+
+/* ======================================================
+   TAILWIND SEMANTIC TOKENS (STATIC)
+   ====================================================== */
+@theme {
+    --background: var(--color-background);
+    --surface: var(--color-surface);
+    --surface-elevated: var(--color-surface-elevated);
+    --border: var(--color-border);
+
+    --foreground: var(--color-foreground);
+    --muted: var(--color-muted);
+    --muted-foreground: var(--color-muted-foreground);
+
+    --primary: var(--color-primary);
+    --primary-foreground: var(--color-primary-foreground);
+}
+
+/* ======================================================
+   BASE DOCUMENT
+   ====================================================== */
+html,
+body,
+#root {
+    height: 100%;
+}
+
+body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+}
