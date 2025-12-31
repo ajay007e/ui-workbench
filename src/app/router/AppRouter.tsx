@@ -1,11 +1,11 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import { routes } from "./routes";
 import { Layout } from "@/components/layout/Layout";
 import { Fragment } from "react";
 
 export function AppRouter() {
     return (
-        <BrowserRouter>
+        <HashRouter>
             <Routes>
                 {routes.map((route) => {
                     const Wrapper = route.isLayoutRequired ? Layout : Fragment;
@@ -19,6 +19,6 @@ export function AppRouter() {
                     );
                 })}
             </Routes>
-        </BrowserRouter>
+        </HashRouter>
     );
 }

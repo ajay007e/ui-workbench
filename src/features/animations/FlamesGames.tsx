@@ -11,6 +11,21 @@ import {
 
 /* ---------------- CONSTANTS ---------------- */
 
+type LetterItem = {
+    char: string;
+    crossed: boolean;
+};
+
+type FlamesItem = {
+    letter: string;
+    removed: boolean;
+    active?: boolean;
+    count?: number | null;
+};
+
+type GameNavbarProps = {
+    subtitle?: string;
+};
 const FLAMES = ["F", "L", "A", "M", "E", "S"];
 
 const FLAMES_MAP = {
@@ -61,7 +76,7 @@ const FLAMES_MAP = {
 
 /* ---------------- NAVBAR ---------------- */
 
-const GameNavbar = ({ subtitle }) => (
+const GameNavbar = ({ subtitle }: GameNavbarProps) => (
     <div className="mb-3 shrink-0">
         <div className="flex items-center justify-between px-1">
             <div className="flex items-center gap-2">
@@ -87,22 +102,23 @@ export default function FlamesGame() {
     const [name1, setName1] = useState("");
     const [name2, setName2] = useState("");
 
-    const [lettersA, setLettersA] = useState([]);
-    const [lettersB, setLettersB] = useState([]);
-    const [activeA, setActiveA] = useState(null);
-    const [activeB, setActiveB] = useState(null);
+    const [lettersA, setLettersA] = useState<LetterItem[]>([]);
+    const [lettersB, setLettersB] = useState<LetterItem[]>([]);
 
-    const [flamesState, setFlamesState] = useState(
+    const [activeA, setActiveA] = useState<number | null>(null);
+    const [activeB, setActiveB] = useState<number | null>(null);
+
+    const [result, setResult] = useState<string | null>(null);
+
+    const [flamesState, setFlamesState] = useState<FlamesItem[]>(
         FLAMES.map((l) => ({ letter: l, removed: false })),
     );
 
-    const [result, setResult] = useState(null);
     const skipRef = useRef(false);
 
-    const name1Ref = useRef(null);
-    const name2Ref = useRef(null);
-
-    const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+    const name1Ref = useRef<HTMLInputElement | null>(null);
+    const name2Ref = useRef<HTMLInputElement | null>(null);
+    const delay = (ms: number) => new Promise<void>((res) => setTimeout(res, ms));
 
     /* ---------------- AUTO FOCUS ---------------- */
 
@@ -118,7 +134,7 @@ export default function FlamesGame() {
         }
     }, [showSecond]);
 
-    const prepareLetters = (name) =>
+    const prepareLetters = (name: string): LetterItem[] =>
         name
             .toLowerCase()
             .replace(/[^a-z]/g, "")
@@ -166,7 +182,7 @@ export default function FlamesGame() {
         flamesElimination(remaining);
     };
 
-    const flamesElimination = async (count) => {
+    const flamesElimination = async (count: number) => {
         setStep("flames");
 
         const list = FLAMES.map((l) => ({
@@ -195,7 +211,10 @@ export default function FlamesGame() {
             if (!skipRef.current) await delay(500);
         }
 
-        setResult(list.find((l) => !l.removed).letter);
+        const remaining = list.find((l) => !l.removed);
+        if (remaining) {
+            setResult(remaining.letter);
+        }
         setStep("result");
     };
 
@@ -447,7 +466,8 @@ export default function FlamesGame() {
                 {/* RESULT */}
                 {step === "result" &&
                     (() => {
-                        const data = FLAMES_MAP[result];
+                        const data =
+                            FLAMES_MAP[(result ?? "PERFECT") as keyof typeof FLAMES_MAP];
                         const Icon = data.icon;
 
                         return (
