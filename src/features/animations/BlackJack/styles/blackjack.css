@@ -1,0 +1,347 @@
+/* =====================================================
+   TABLE LAYOUT
+===================================================== */
+
+.blackjack-table {
+    position: relative;
+    /* stacking context */
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-rows: 1fr auto 1fr;
+    background: radial-gradient(circle at center, #14532d, #064e3b);
+}
+
+/* =====================================================
+   DEALER / PLAYER ZONES
+===================================================== */
+
+.dealer-zone,
+.player-zone {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.zone-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.hand-total {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.card-row {
+    display: flex;
+    gap: 12px;
+}
+
+/* =====================================================
+   CENTER DECK
+===================================================== */
+
+.deck-zone {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.deck {
+    width: 70px;
+    height: 100px;
+    border-radius: 8px;
+    background: linear-gradient(145deg, #1f2937, #020617);
+    border: 1px solid #444;
+}
+
+/* =====================================================
+   SHUFFLE ANIMATION
+===================================================== */
+
+@keyframes blackjack-shuffle {
+    0% {
+        transform: translateX(0) rotate(0deg);
+    }
+
+    25% {
+        transform: translateX(-6px) rotate(-3deg);
+    }
+
+    50% {
+        transform: translateX(6px) rotate(3deg);
+    }
+
+    75% {
+        transform: translateX(-4px) rotate(-2deg);
+    }
+
+    100% {
+        transform: translateX(0) rotate(0deg);
+    }
+}
+
+.shuffle-animation {
+    animation: blackjack-shuffle 0.8s ease-in-out infinite;
+}
+
+/* =====================================================
+   CARD (FLIP + FACE)
+===================================================== */
+
+.card {
+    width: 70px;
+    height: 100px;
+    perspective: 1000px;
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+}
+
+.card-hidden .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    inset: 0;
+    border-radius: 8px;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 6px;
+    font-weight: bold;
+}
+
+/* Card front */
+.card-front {
+    background: #fafafa;
+}
+
+/* Card back */
+.card-back {
+    background: linear-gradient(145deg, #1f2937, #020617);
+    color: white;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4rem;
+    transform: rotateY(180deg);
+}
+
+/* =====================================================
+   CARD COLORS
+===================================================== */
+
+.card-red {
+    color: #b91c1c;
+}
+
+.card-black {
+    color: #111827;
+}
+
+/* =====================================================
+   PLAYER CONTROLS
+===================================================== */
+
+.controls {
+    margin-top: 16px;
+    display: flex;
+    gap: 16px;
+}
+
+.action-btn {
+    padding: 10px 26px;
+    border-radius: 999px;
+    background: linear-gradient(to right, #ef4444, #f43f5e);
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(244, 63, 94, 0.45);
+}
+
+/* =====================================================
+   MODALS (INTRO + RESULT OVERLAY)
+===================================================== */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+}
+
+/* =====================================================
+   CLEAN RESULT MODAL (CASINO STYLE)
+===================================================== */
+
+.result-card-clean {
+    width: 90%;
+    max-width: 420px;
+    padding: 40px 36px 42px;
+    border-radius: 20px;
+    background: linear-gradient(to bottom right, #020617, #0f172a);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.75);
+    text-align: center;
+    position: relative;
+    animation: scaleIn 0.3s ease-out;
+}
+
+/* Top accent bar */
+.result-card-clean::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    border-radius: 20px 20px 0 0;
+}
+
+.accent-win::before {
+    background: #22c55e;
+}
+
+.accent-lose::before {
+    background: #ef4444;
+}
+
+.accent-push::before {
+    background: #64748b;
+}
+
+/* Result content */
+.result-icon-clean {
+    color: #9ca3af;
+    margin-bottom: 14px;
+}
+
+.result-title-clean {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: white;
+    letter-spacing: 0.04em;
+    margin-bottom: 10px;
+}
+
+.result-subtext-clean {
+    font-size: 0.9rem;
+    color: #9ca3af;
+    margin-bottom: 28px;
+}
+
+/* Result button */
+.result-action-btn {
+    padding: 10px 28px;
+    border-radius: 999px;
+    background: linear-gradient(to right, #ef4444, #f43f5e);
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.result-action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(244, 63, 94, 0.45);
+}
+
+/* =====================================================
+   CARD FLY ANIMATION
+===================================================== */
+
+.flying-card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 70px;
+    height: 100px;
+    border-radius: 8px;
+    background: linear-gradient(145deg, #1f2937, #020617);
+    border: 1px solid #444;
+    transform: translate(-50%, -50%);
+    z-index: 40;
+    pointer-events: none;
+}
+
+.fly-to-player {
+    animation: flyToPlayer 0.6s ease-out forwards;
+}
+
+.fly-to-dealer {
+    animation: flyToDealer 0.6s ease-out forwards;
+}
+
+@keyframes flyToPlayer {
+    to {
+        transform: translate(-50%, 220px);
+        opacity: 0;
+    }
+}
+
+@keyframes flyToDealer {
+    to {
+        transform: translate(-50%, -220px);
+        opacity: 0;
+    }
+}
+
+/* =====================================================
+   SHARED ANIMATIONS
+===================================================== */
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* =====================================================
+   MOBILE POLISH (OPTIONAL BUT SAFE)
+===================================================== */
+
+@media (max-height: 700px) {
+    .card {
+        width: 60px;
+        height: 88px;
+    }
+
+    .controls {
+        gap: 12px;
+    }
+}

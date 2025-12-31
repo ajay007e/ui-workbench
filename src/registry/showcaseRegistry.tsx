@@ -1,6 +1,7 @@
 import type { ShowcaseItem } from "./types";
 import { PreviewPlaceholder, DemoPlaceholder } from "./placeholders";
-import FlamesGame from "@/features/animations/FlamesGames";
+import FlamesGame from "@/features/animations/FlamesGame/FlamesGames";
+import BlackJack from "@/features/animations/BlackJack/BlackJack";
 
 export const showcaseRegistry: ShowcaseItem[] = [
   {
@@ -23,5 +24,16 @@ export const showcaseRegistry: ShowcaseItem[] = [
     route: "/animations/flames",
     preview: <PreviewPlaceholder title="Flames" />,
     component: <FlamesGame />,
+  },
+
+  {
+    id: "blackjack-game",
+    title: "Blackjack Game",
+    description:
+      "a classic casino card game where the player competes against the dealer to reach 21 without busting",
+    category: "animations",
+    route: "/animations/blackjack",
+    preview: <PreviewPlaceholder title="Blackjack" />,
+    component: <BlackJack />,
   },
 ];
