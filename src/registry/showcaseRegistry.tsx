@@ -15,15 +15,6 @@ export const showcaseRegistry: ShowcaseItem[] = [
   },
 
   {
-    id: "landing-pinterest",
-    title: "Pinterest Landing",
-    description: "Masonry-style Pinterest-inspired layout",
-    category: "landing",
-    route: "/landing/pinterest",
-    preview: <PreviewPlaceholder title="Demo" />,
-    component: <DemoPlaceholder title="Demo" />,
-  },
-  {
     id: "flames-game",
     title: "Flames Game",
     description:

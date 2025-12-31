@@ -1,17 +1,24 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { routes } from "./routes";
 import { Layout } from "@/components/layout/Layout";
+import { Fragment } from "react";
 
 export function AppRouter() {
     return (
         <BrowserRouter>
-            <Layout>
-                <Routes>
-                    {routes.map((route) => (
-                        <Route key={route.path} path={route.path} element={route.element} />
-                    ))}
-                </Routes>
-            </Layout>
+            <Routes>
+                {routes.map((route) => {
+                    const Wrapper = route.isLayoutRequired ? Layout : Fragment;
+
+                    return (
+                        <Route
+                            key={route.path}
+                            path={route.path}
+                            element={<Wrapper>{route.element}</Wrapper>}
+                        />
+                    );
+                })}
+            </Routes>
         </BrowserRouter>
     );
 }
