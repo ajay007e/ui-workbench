@@ -2,6 +2,7 @@ import type { ShowcaseItem } from "./types";
 import { PreviewPlaceholder, DemoPlaceholder } from "./placeholders";
 import FlamesGame from "@/features/animations/FlamesGame/FlamesGames";
 import BlackJack from "@/features/animations/BlackJack/BlackJack";
+import DiaryPage from "@/features/animations/Diary/DiaryPage";
 
 export const showcaseRegistry: ShowcaseItem[] = [
   {
@@ -35,5 +36,16 @@ export const showcaseRegistry: ShowcaseItem[] = [
     route: "/animations/blackjack",
     preview: <PreviewPlaceholder title="Blackjack" />,
     component: <BlackJack />,
+  },
+
+  {
+    id: "diary-page",
+    title: "Diary Page",
+    description:
+      "a minimal and elegant fixed-size diary page with ruled lines, date header, permanent writing, strike-through editing, and customizable typography",
+    category: "animations",
+    route: "/animations/diary",
+    preview: <PreviewPlaceholder title="Diary Page" />,
+    component: <DiaryPage />,
   },
 ];
